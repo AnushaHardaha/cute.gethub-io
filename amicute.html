@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Am I Cute?</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #ff66b2; /* Bright pink background */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .options {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: #ff80c0; /* Slightly lighter pink for buttons */
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+
+        #result {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .float-animation {
+            animation: floatAway 1s ease-out;
+        }
+
+        @keyframes floatAway {
+            to {
+                transform: translate(calc(var(--random-distance) * var(--direction)), calc(var(--random-distance-y) * var(--direction-y)));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Am I cute?</h1>
+    
+    <div class="options">
+        <button class="button" onclick="showResult('yes')">Yes</button>
+        <button class="button" onclick="floatAway('no')">No</button>
+    </div>
+
+    <div id="result">
+        <p id="cuteMessage"></p>
+    </div>
+
+    <script>
+        function showResult(answer) {
+            var resultMessage = document.getElementById('cuteMessage');
+            var resultDiv = document.getElementById('result');
+
+            if (answer === 'yes') {
+                resultMessage.innerHTML = 'I know you love me!';
+            } else {
+                resultMessage.innerHTML = 'No worries, beauty is in the eye of the beholder!';
+            }
+
+            resultDiv.style.display = 'block';
+        }
+
+        function floatAway(option) {
+            var noButton = document.querySelector('.button[onclick="floatAway(\'no\')"]');
+            
+            var buttonRect = noButton.getBoundingClientRect();
+            var distanceX = Math.floor(Math.random() * 200) + 100; // Random distance between 100 and 300 pixels
+            var distanceY = Math.floor(Math.random() * 200) + 100; // Random distance between 100 and 300 pixels
+            var directionX = Math.random() < 0.5 ? 1 : -1; // Random direction (left or right)
+            var directionY = Math.random() < 0.5 ? 1 : -1; // Random direction (up or down)
+
+            noButton.style.setProperty('--random-distance', distanceX + 'px');
+            noButton.style.setProperty('--random-distance-y', distanceY + 'px');
+            noButton.style.setProperty('--direction', directionX);
+            noButton.style.setProperty('--direction-y', directionY);
+
+            noButton.classList.add('float-animation');
+            
+            setTimeout(function() {
+                alert("FUCK YOU!");
+            }, 1000); // Delayed alert after 1 second
+
+            // Add any additional logic or cleanup as needed
+        }
+    </script>
+
+</body>
+</html>
